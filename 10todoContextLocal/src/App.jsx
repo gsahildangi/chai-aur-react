@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { TodoProvider } from './contexts'
-import {TodoForm , TodoItem } from './components/index'
+import {TodoForm , TodoItems } from './components'
 
 function App() {
   const [todos, setTodos] = useState([])
 
-  const addTodo =(todo)=>{
-     setTodos((prev)=>[{id:Date.now(),...todo},...prev])
+  const addTodo =({todo})=>{
+     setTodos((prev)=>[...prev, {id:Date.now(),todo}])
   }
   const updateTodo = (id,todo)=>{
-    setTodos((prev)=>prev.map((prevTodo)=>(prevTodo)=>(prevTodo.id===id?todo :prevTodo )))
+    setTodos((prev)=>prev.map((prevTodo)=>(prevTodo.id===id ? todo : prevTodo )))
   }
 
   const deleteTodo= (id)=>{
@@ -43,8 +43,8 @@ function App() {
                     <div className="flex flex-wrap gap-y-3">
                         {/*Loop and Add TodoItem here */}
                         {todos.map((todo)=>(
-                           <div key={todos.id} className='w-full'> 
-                             <TodoItem todo={todo }/>
+                           <div key={todo.id} className='w-full'> 
+                             <TodoItems todo={todo }/>
                            </div>
                         ))}
                     </div>
